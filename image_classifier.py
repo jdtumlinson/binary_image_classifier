@@ -67,9 +67,6 @@ def train_model():
         ax[idx].title.set_text(batch[1][idx])
 
     plt.show()
-
-    # CLASS 0 = HAPPY PEOPLE
-    # CLASS 1 = SAD PEOPLE
     
     return pre_process_data(data, viewStats, class1, class2), class1, class2
 
@@ -217,13 +214,13 @@ def predict(mcc: tuple):
 
         yhat = model.predict(np.expand_dims(resize / 255, 0))
 
-        if yhat < 0.5: print(f"\nThis image is of class {class2}")
-        else: print(f"\nThis image is of class {class1}")
+        if yhat < 0.5: print(f"\nThis image is a {class2}")
+        else: print(f"\nThis image is a {class1}")
         
         choice = ""
         
         while choice not in ["y", "n"]:
-            choice = input("\n\n\Would you like to continue predicting images? (Y or N): ").lower()
+            choice = input("\n\nWould you like to continue predicting images? (Y or N): ").lower()
             
             if choice == "y": continue
             elif choice == "n": return
