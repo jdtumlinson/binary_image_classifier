@@ -9,3 +9,6 @@ In order to train a model, you must have 2 folders, each title with the folders 
 
 ### Loading Model Requirements
 To load a model, it must be a trained, tensorflow model with a name in the format `class1_class2_model.*extension*`. You will then follow the steps printed out in the terminal.
+
+
+Based on the tutorial by Nicholas Renotte https://www.youtube.com/watch?v=jztwpsIzEGc
