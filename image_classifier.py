@@ -99,20 +99,36 @@ def pre_process_data(data, viewStats: bool, class1: str, class2: str):
     #Create model
     model = tf.keras.models.Sequential()
 
+    # Add layer | 
+    #               16 filters, 3x3 size
+    #               1 step size for filter movement
+    #               ReLU activation
+    #               Shape of 256 by 256 by 3 (256x256 image with 3 layers of colors -- red, green, blue)
     model.add(tf.keras.layers.Conv2D(16, (3, 3), 1, activation="relu", input_shape=(256, 256, 3)))
+    
+    #Perform max pooling to downsize feature map
     model.add(tf.keras.layers.MaxPooling2D())
 
+    #32 filters, 3x3 size...
     model.add(tf.keras.layers.Conv2D(32, (3, 3), 1, activation="relu"))
     model.add(tf.keras.layers.MaxPooling2D())
 
+    #16 filters, 3x3 size..
     model.add(tf.keras.layers.Conv2D(16, (3, 3), 1, activation="relu"))
     model.add(tf.keras.layers.MaxPooling2D())
 
+    #Convert 2D feature map into 1D vector
     model.add(tf.keras.layers.Flatten())
 
+    #Fully connected layer with 256 neurons with ReLU activation
     model.add(tf.keras.layers.Dense(256, activation="relu"))
+    
+    #Create an output layer with 1 neuron and sigmoid activation
     model.add(tf.keras.layers.Dense(1, activation="sigmoid"))
 
+    #Optimizer: adam -- adapative moment estimation
+    #Loss function: BinaryCrossentropy()
+    #Use the accuracy model to evaluate performance
     model.compile('adam', loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
     
     if viewStats: model.summary()
